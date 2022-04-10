@@ -57,11 +57,3 @@ export const useAdminProducts = defineStore('adminProduct', {
     },
   },
 });
-
-export function initialFetchAdminProducts() {
-  const adminProductStore = useAdminProducts();
-  if (!adminProductStore.loaded) {
-    adminProductStore.fetchProducts();
-    adminProductStore.loaded = true;
-  }
-}

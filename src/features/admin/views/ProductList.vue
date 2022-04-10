@@ -2,30 +2,33 @@
 import { useAdminProducts } from '../stores/adminProductStore';
 
 const adminProductStore = useAdminProducts();
+adminProductStore.fetchProducts();
 
 function tryDeleteProduct(productId: string) {
-    adminProductStore.deleteProduct(productId);
+  adminProductStore.deleteProduct(productId);
 }
 </script>
 
 <template>
-    <div class="container card">
-        <h1>Liste des produits</h1>
-        <h3 v-if="adminProductStore.isLoading">Chargement ...</h3>
-        <ul v-else>
-            <li
-                class="d-flex flex-row align-items-center"
-                v-for="product of adminProductStore.products"
-                :key="product._id"
-            >
-                <span class="flex-fill">{{ product.title }}</span>
-                <router-link :to="{ name: 'edit', params: { productId: product._id } }">
-                    <button class="btn btn-primary mr-20">Modifier</button>
-                </router-link>
-                <button @click="tryDeleteProduct(product._id)" class="btn btn-danger">Supprimer</button>
-            </li>
-        </ul>
-    </div>
+  <div class="container card">
+    <h1>Liste des produits</h1>
+    <h3 v-if="adminProductStore.isLoading">Chargement ...</h3>
+    <ul v-else>
+      <li
+        class="d-flex flex-row align-items-center"
+        v-for="product of adminProductStore.products"
+        :key="product._id"
+      >
+        <span class="flex-fill">{{ product.title }}</span>
+        <router-link :to="{ name: 'edit', params: { productId: product._id } }">
+          <button class="btn btn-primary mr-20">Modifier</button>
+        </router-link>
+        <button @click="tryDeleteProduct(product._id)" class="btn btn-danger">
+          Supprimer
+        </button>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <style scoped lang="scss">
