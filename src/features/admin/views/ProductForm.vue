@@ -4,8 +4,6 @@ import { z } from 'zod';
 import { toFormValidator } from '@vee-validate/zod';
 import { onMounted, ref } from 'vue';
 import {
-  addProduct,
-  editProduct,
   getProduct,
 } from '../../../shared/services/product.service';
 import type { ProductInterface } from '../../../shared/interfaces/Product.interface';
