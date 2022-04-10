@@ -5,7 +5,7 @@ import {
   FiltersInterface,
   FilterUpdate,
 } from '../../../shared/interfaces';
-import { fetchProducts } from '../../../shared/services/product.service';
+import { fetchProductsWithFilters } from '../../../shared/services/product.service';
 import { DEFAULT_FILTERS } from '../data/filters';
 
 interface ProductState {
@@ -36,7 +36,7 @@ export const useProducts = defineStore('products', {
   actions: {
     async fetchProducts() {
       this.isLoading = true;
-      const products = await fetchProducts(this.filters, this.page);
+      const products = await fetchProductsWithFilters(this.filters, this.page);
       if (Array.isArray(products)) {
         this.products = [...this.products, ...products];
         if (products.length < 20) {

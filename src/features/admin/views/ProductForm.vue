@@ -10,12 +10,15 @@ import {
 } from '../../../shared/services/product.service';
 import type { ProductInterface } from '../../../shared/interfaces/Product.interface';
 import { useRoute, useRouter } from 'vue-router';
+import { useAdminProducts } from '../stores/adminProductStore';
 
 const firstInput = ref<HTMLInputElement | null>(null);
 const product = ref<ProductInterface | null>(null);
 
 const route = useRoute();
 const router = useRouter();
+
+const adminProductStore = useAdminProducts();
 
 if (route.params.productId) {
   product.value = await getProduct(route.params.productId as string);
@@ -64,17 +67,17 @@ const description = useField('description');
 const category = useField('category');
 
 const trySubmit = handleSubmit(async (formValues, { resetForm }) => {
-  try {
-    if (!product.value) {
-      await addProduct(formValues);
-    } else {
-      await editProduct(product.value._id, formValues);
+    try {
+        if (!product.value) {
+            await adminProductStore.addProduct(formValues);
+        } else {
+            await adminProductStore.editProduct(product.value._id, formValues);
+        }
+        router.push('/admin/productlist');
+    } catch (e) {
+        console.log(e);
     }
-    router.push('/admin/productlist');
-  } catch (e) {
-    console.log(e);
-  }
-});
+})
 </script>
 
 <template>
