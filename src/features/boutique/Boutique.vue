@@ -62,4 +62,6 @@ productStore.$onAction(({ name, after, args }) => {
   </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+
+</style>
